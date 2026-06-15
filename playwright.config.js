@@ -35,20 +35,50 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+  {
+    name: 'chromium',
+    testMatch: /.*(compatibility|portability)\.spec\.js/,
+    grep: /FS_COMP_|FS_PORT_001|FS_PORT_004|FS_PORT_007|FS_PORT_008|FS_PORT_009|FS_PORT_010/,
+    use: {
+      ...devices['Desktop Chrome'],
     },
+  },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+  {
+    name: 'firefox',
+    testMatch: /.*(compatibility|portability)\.spec\.js/,
+    grep: /FS_COMP_|FS_PORT_002/,
+    use: {
+      ...devices['Desktop Firefox'],
     },
+  },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+  {
+    name: 'webkit',
+    testMatch: /.*(compatibility|portability)\.spec\.js/,
+    grep: /FS_COMP_|FS_PORT_003/,
+    use: {
+      ...devices['Desktop Safari'],
     },
+  },
+
+  {
+    name: 'android',
+    testMatch: /.*portability\.spec\.js/,
+    grep: /FS_PORT_005/,
+    use: {
+      ...devices['Pixel 5'],
+    },
+  },
+
+  {
+    name: 'ios',
+    testMatch: /.*portability\.spec\.js/,
+    grep: /FS_PORT_006/,
+    use: {
+      ...devices['iPhone 12'],
+    },
+  },
 
     /* Test against mobile viewports. */
     // {

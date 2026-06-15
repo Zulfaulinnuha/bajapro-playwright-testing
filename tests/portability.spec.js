@@ -1,9 +1,13 @@
-const { test, expect, devices } = require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 
+const BASE_URL = 'http://labai.polinema.ac.id:90';
+
+// ======================================
 // HELPER LOGIN
+// ======================================
 async function login(page) {
 
-    await page.goto('http://labai.polinema.ac.id:90/login', {
+    await page.goto(`${BASE_URL}/login`, {
         waitUntil: 'domcontentloaded'
     });
 
@@ -21,7 +25,11 @@ async function login(page) {
 
 }
 
-// FS_PORT_001 - Akses di Chromium
+// ======================================
+// FS_PORT_001
+// Akses di Chromium
+// ======================================
+
 test('FS_PORT_001 - Akses di Chromium', async ({ page }) => {
 
     test.setTimeout(60000);
@@ -30,16 +38,20 @@ test('FS_PORT_001 - Akses di Chromium', async ({ page }) => {
 
     await expect(
         page.locator('text=Java').first()
-    ).toBeVisible({ timeout: 10000 });
+    ).toBeVisible({
+        timeout: 10000
+    });
 
     await page.waitForTimeout(5000);
 
 });
 
-// FS_PORT_002 - Akses di Firefox
-test('FS_PORT_002 - Akses di Firefox', async ({ page, browserName }) => {
+// ======================================
+// FS_PORT_002
+// Akses di Firefox
+// ======================================
 
-    test.skip(browserName !== 'firefox');
+test('FS_PORT_002 - Akses di Firefox', async ({ page }) => {
 
     test.setTimeout(60000);
 
@@ -47,16 +59,20 @@ test('FS_PORT_002 - Akses di Firefox', async ({ page, browserName }) => {
 
     await expect(
         page.locator('text=Java').first()
-    ).toBeVisible({ timeout: 10000 });
+    ).toBeVisible({
+        timeout: 10000
+    });
 
     await page.waitForTimeout(5000);
 
 });
 
-// FS_PORT_003 - Akses di WebKit
-test('FS_PORT_003 - Akses di WebKit', async ({ page, browserName }) => {
+// ======================================
+// FS_PORT_003
+// Akses di WebKit
+// ======================================
 
-    test.skip(browserName !== 'webkit');
+test('FS_PORT_003 - Akses di WebKit', async ({ page }) => {
 
     test.setTimeout(60000);
 
@@ -64,13 +80,19 @@ test('FS_PORT_003 - Akses di WebKit', async ({ page, browserName }) => {
 
     await expect(
         page.locator('text=Java').first()
-    ).toBeVisible({ timeout: 10000 });
+    ).toBeVisible({
+        timeout: 10000
+    });
 
     await page.waitForTimeout(5000);
 
 });
 
-// FS_PORT_004 - Akses di Windows
+// ======================================
+// FS_PORT_004
+// Akses di Windows
+// ======================================
+
 test('FS_PORT_004 - Akses di Windows', async ({ page }) => {
 
     test.setTimeout(60000);
@@ -79,13 +101,72 @@ test('FS_PORT_004 - Akses di Windows', async ({ page }) => {
 
     await expect(
         page.locator('text=Java').first()
-    ).toBeVisible({ timeout: 10000 });
+    ).toBeVisible({
+        timeout: 10000
+    });
 
     await page.waitForTimeout(5000);
 
 });
 
-// FS_PORT_007 - Konsistensi Tampilan
+// ======================================
+// FS_PORT_005
+// Akses di Android
+// ======================================
+
+test('FS_PORT_005 - Akses di Android', async ({ page }) => {
+
+    test.setTimeout(60000);
+
+    await login(page);
+
+    await expect(
+        page.locator('text=Java').first()
+    ).toBeVisible({
+        timeout: 10000
+    });
+
+    await page.screenshot({
+        path: 'android-portability.png',
+        fullPage: true
+    });
+
+    await page.waitForTimeout(5000);
+
+});
+
+// ======================================
+// FS_PORT_006
+// Akses di iOS
+// ======================================
+
+test('FS_PORT_006 - Akses di iOS', async ({ page }) => {
+
+    test.setTimeout(60000);
+
+    await login(page);
+
+    await expect(
+        page.locator('text=Java').first()
+    ).toBeVisible({
+        timeout: 10000
+    });
+
+    await page.screenshot({
+        path: 'ios-portability.png',
+        fullPage: true
+    });
+
+    await page.waitForTimeout(5000);
+
+});
+
+
+// ======================================
+// FS_PORT_007
+// Konsistensi Tampilan
+// ======================================
+
 test('FS_PORT_007 - Konsistensi Tampilan', async ({ page }) => {
 
     test.setTimeout(60000);
@@ -94,17 +175,25 @@ test('FS_PORT_007 - Konsistensi Tampilan', async ({ page }) => {
 
     await expect(
         page.locator('text=Java').first()
-    ).toBeVisible({ timeout: 10000 });
+    ).toBeVisible({
+        timeout: 10000
+    });
 
     await expect(
         page.locator('text=Take Your Lesson now')
-    ).toBeVisible({ timeout: 10000 });
+    ).toBeVisible({
+        timeout: 10000
+    });
 
     await page.waitForTimeout(5000);
 
 });
 
-// FS_PORT_008 - Konsistensi Fitur Login
+// ======================================
+// FS_PORT_008
+// Konsistensi Fitur Login
+// ======================================
+
 test('FS_PORT_008 - Konsistensi Fitur Login', async ({ page }) => {
 
     test.setTimeout(90000);
@@ -113,21 +202,27 @@ test('FS_PORT_008 - Konsistensi Fitur Login', async ({ page }) => {
 
     await expect(
         page.locator('text=Java').first()
-    ).toBeVisible({ timeout: 10000 });
+    ).toBeVisible({
+        timeout: 10000
+    });
 
     await page.waitForTimeout(5000);
 
 });
 
-// FS_PORT_009 - Konsistensi Fitur Course
+// ======================================
+// FS_PORT_009
+// Konsistensi Fitur Course
+// ======================================
+
 test('FS_PORT_009 - Konsistensi Fitur Course', async ({ page }) => {
 
     test.setTimeout(120000);
 
-    // login
+    // Login
     await login(page);
 
-    // buka My Course
+    // Buka My Course
     await Promise.all([
         page.waitForNavigation({
             waitUntil: 'networkidle'
@@ -136,29 +231,37 @@ test('FS_PORT_009 - Konsistensi Fitur Course', async ({ page }) => {
         page.click('text=My Course')
     ]);
 
-    // validasi halaman
+    // Validasi halaman
     await expect(
         page.locator('text=Take Your Lesson now')
-    ).toBeVisible({ timeout: 10000 });
+    ).toBeVisible({
+        timeout: 10000
+    });
 
     await expect(
         page.locator('text=Java').first()
-    ).toBeVisible({ timeout: 10000 });
+    ).toBeVisible({
+        timeout: 10000
+    });
 
     await page.waitForTimeout(5000);
 
 });
 
-// FS_PORT_010 - Konsistensi Fitur Coding
-// SEMI MANUAL TESTING
+// ======================================
+// FS_PORT_010
+// Konsistensi Fitur Coding
+// Semi Manual Testing
+// ======================================
+
 test('FS_PORT_010 - Konsistensi Fitur Coding', async ({ page }) => {
 
     test.setTimeout(180000);
 
-    // login
+    // Login
     await login(page);
 
-    // buka My Course
+    // Buka My Course
     await Promise.all([
         page.waitForNavigation({
             waitUntil: 'networkidle'
@@ -176,7 +279,7 @@ test('FS_PORT_010 - Konsistensi Fitur Coding', async ({ page }) => {
         page.locator('text=Start Lesson').first().click()
     ]);
 
-    // pilih Easy
+    // Pilih level Easy
     await page
         .locator('text=Easy')
         .locator('..')
@@ -184,23 +287,26 @@ test('FS_PORT_010 - Konsistensi Fitur Coding', async ({ page }) => {
         .first()
         .click({ force: true });
 
+    // Tunggu halaman selesai dimuat
     await page.waitForLoadState('networkidle');
 
-    // buka materi
+    // Buka materi
     await page
         .locator('text=Tipe Data, Variabel dan Operator')
         .first()
         .click();
 
-    // validasi tombol Let's Test
+    // Validasi tombol Let's Test
     await expect(
         page.getByText("Let's Test")
-    ).toBeVisible({ timeout: 10000 });
+    ).toBeVisible({
+        timeout: 10000
+    });
 
-    // buka coding
+    // Masuk ke editor coding
     await page.getByText("Let's Test").click();
 
-    // tahan browser untuk manual testing
+    // Semi Manual Testing
     await page.waitForTimeout(60000);
 
 });
